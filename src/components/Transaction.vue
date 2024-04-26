@@ -12,16 +12,14 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { defineProps } from "vue";
 
-const dummyTransactions = [
-  { id: 1, text: "Flower", amount: -20 },
-  { id: 2, text: "Salary", amount: 300 },
-  { id: 3, text: "Book", amount: -10 },
-  { id: 4, text: "Camera", amount: 150 },
-];
-
-const transactionList = ref(dummyTransactions);
+const props = defineProps({
+  transactionList: {
+    type: Array,
+    required: true,
+  },
+});
 </script>
 
 <style lang="scss" scoped></style>
