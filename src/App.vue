@@ -1,11 +1,14 @@
 <script setup>
+import { ref, computed } from "vue";
+import { useToast } from "vue-toastification";
+
 import Header from "./components/Header.vue";
 import Balance from "./components/Balance.vue";
 import IncomeExpense from "./components/IncomeExpense.vue";
 import Transaction from "./components/Transaction.vue";
 import AddTransaction from "./components/AddTransaction.vue";
 
-import { ref, computed } from "vue";
+const toast = useToast();
 
 const dummyTransactions = [
   { id: 1, text: "Flower", amount: -20 },
@@ -42,15 +45,31 @@ const totalExpense = computed(() => {
     }, 0)
     .toFixed(2);
 });
+
+const handleTransactionSubmit = (transactionData) => {
+  transactionList.value.push({
+    id: generateUniqueId(),
+    text: transactionData.text,
+    amount: transactionData.amount,
+  });
+  // console.log(transactionData);
+
+  toast.success("Transaction added successfully");
+};
+
+// Generate unique ID
+const generateUniqueId = () => {
+  return Math.floor(Math.random() * 1000000);
+};
 </script>
 
 <template>
   <Header />
   <div class="container">
-    <Balance :total="total" />
+    <Balance :total="+total" />
     <IncomeExpense :income="+totalIncome" :expense="+totalExpense" />
     <Transaction :transactionList="transactionList" />
-    <AddTransaction />
+    <AddTransaction @transactionSubmit="handleTransactionSubmit" />
   </div>
 </template>
 
