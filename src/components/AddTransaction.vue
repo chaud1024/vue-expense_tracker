@@ -27,13 +27,22 @@ import { useToast } from "vue-toastification";
 const text = ref("");
 const amount = ref("");
 
+const emit = defineEmits(["transactionSubmit"]);
+
 const toast = useToast();
 
 const onSubmit = () => {
   if (!text.value || !amount.value) {
     toast.error("Please add a text and amount");
   }
-  console.log("submitted", text.value, amount.value);
+
+  const transactionData = {
+    text: text.value,
+    amount: parseFloat(amount.value),
+  };
+
+  // emit('name of custom event', data)
+  emit("transactionSubmit", transactionData);
 
   text.value = "";
   amount.value = "";
