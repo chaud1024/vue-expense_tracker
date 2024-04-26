@@ -48,7 +48,7 @@ const totalExpense = computed(() => {
   <Header />
   <div class="container">
     <Balance :total="total" />
-    <IncomeExpense :income="totalIncome" :expense="totalExpense" />
+    <IncomeExpense :income="+totalIncome" :expense="+totalExpense" />
     <Transaction :transactionList="transactionList" />
     <AddTransaction />
   </div>
